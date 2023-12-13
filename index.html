@@ -8,15 +8,25 @@
 </head>
 <body>
 
-    <div class="hours">
-        <div id="hours-container">
-            <p>12</p>
-            <p><span>9</span><span>3</span></p>
-            <p>6</p>
-            <div class="hand hour" data-hour-hand></div>
-            <div class="hand minute" data-minute-hand></div>
-            <div class="hand second" data-second-hand></div>
+    <div class="watch">
+        <div class="shrink"></div>
+        <div class="sections-container">
+            <section class="clock-container">
+                <p>12</p>
+                <p><span>9</span><span>3</span></p>
+                <p>6</p>
+                <div class="hand hour" data-hour-hand></div>
+                <div class="hand minute" data-minute-hand></div>
+                <div class="hand second" data-second-hand></div>
+            </section>
+            <section class="timer">
+                <p id="time"></p>
+                <button id="start-button">Start</button>
+            </section>
+            <section class="music-player">aKraba</section>
+            <section>122</section>
         </div>
+        
     </div>
 
     <script src="./index.js"></script>

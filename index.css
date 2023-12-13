@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,51 +9,77 @@
 body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background: linear-gradient(
     to right,
     hsl(200, 100%, 50%),
     hsl(175, 100%, 50%)
   );
+  scroll-behavior: smooth;
 }
 
-.hours {
-  aspect-ratio: 9/16;
+.watch {
+  aspect-ratio: 1/1.7;
   height: 70vh;
-  background-image: url(./clock.jpg);
+  background-image: url(./clock2.png);
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#hours-container {
-  width: 60%;
-  position: relative;
-  z-index: 0;
-  line-height: 0.75;
-  font-weight: 800;
-  aspect-ratio: 1/1;
+.sections-container {
+  width: 71%;
+  aspect-ratio: 1/1.25;
+  background-color: rgb(44, 43, 43);
+  color: rgb(214, 214, 214);
+  border-radius: 50px;
+  transform: translateY(7px);
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.sections-container::-webkit-scrollbar {
+  display: none;
+}
+
+.sections-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+section {
+  height: 100%;
+  padding: 10px;
+  scroll-snap-align: start;
+}
+
+.clock-container {
   display: grid;
+  font-weight: 800;
+  font-size: 110px;
+  line-height: 0.75;
+  position: relative;
   grid-template-rows: repeat(3, 1fr);
-  font-size: 80px;
 }
 
-#hours-container p:nth-child(odd) {
+.clock-container p:nth-child(odd) {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#hours-container p:nth-child(2) {
+.clock-container p:nth-child(2) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 15px;
+  margin: 0 20px;
 }
 
 .hand {
@@ -65,19 +93,26 @@ body {
 }
 
 .hand.second {
-  width: 3px;
-  height: 45%;
+  width: 1.5px;
+  height: 37%;
   background-color: red;
 }
 
 .hand.minute {
-  width: 8px;
-  height: 40%;
-  background-color: black;
+  width: 10px;
+  height: 35%;
+  background-image: url("./hour-hand.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .hand.hour {
-  width: 12px;
-  height: 30%;
-  background-color: black;
+  width: 10px;
+  height: 24%;
+  background-image: url("./hour-hand.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
+
