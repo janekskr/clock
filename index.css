@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -12,13 +14,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Montserrat', sans-serif;
   background: linear-gradient(
     to right,
     hsl(200, 100%, 50%),
     hsl(175, 100%, 50%)
   );
-  scroll-behavior: smooth;
+
 }
 
 .watch {
@@ -56,13 +57,28 @@ body {
 
 section {
   height: 100%;
-  padding: 10px;
+  padding: 20px 30px;
+  font-size: 19px;
+  display: flex;
+  flex-direction: column;
   scroll-snap-align: start;
+}
+
+ header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: orange;
+  text-decoration: none;
 }
 
 .clock-container {
   display: grid;
   font-weight: 800;
+  padding: 10px;
   font-size: 110px;
   line-height: 0.75;
   position: relative;
@@ -115,4 +131,98 @@ section {
   background-position: center;
   background-size: cover;
 }
+
+#timer #time {
+  font-size: 45px;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 2px solid grey;
+}
+
+#timer .button-container {
+  width: 100%;
+  display: flex;
+  gap: 2px;
+}
+
+#timer .button-container .button {
+  font-weight: 600;
+  flex:1;
+  outline: none;
+  border: none;
+  padding: 17px 20px;
+  font-size: 20px;
+  border-radius: 40px;
+}
+
+#timer #laps-container {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: center;
+  font-size: 30px;
+  max-height: 130px;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+#timer #start-button {
+  background-color: #01E067;
+}
+#timer #reset-button.disabled {
+  color: #9f9f9f;
+  background: #464646;
+}
+
+#timer #reset-button.reset {
+  color: white;
+  background: rgb(156, 4, 4);
+}
+
+#timer #reset-button.lap {
+  color: white;
+  background: rgb(35, 1, 129);
+}
+
+.audio-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.audio-container p {
+  text-align: center;
+}
+
+#audio-controls {
+  display: flex;
+  flex:1;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+
+#audio-controls p {
+   cursor: pointer;
+ }
+
+#audio-author {
+  color: gray
+}
+
+#volume-container {
+  background-color: rgba(128, 128, 128, .6);
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px ;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
 

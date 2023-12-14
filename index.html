@@ -1,34 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
 </head>
+
 <body>
 
     <div class="watch">
         <div class="shrink"></div>
         <div class="sections-container">
-            <section class="clock-container">
+            <section class="clock-container" id="clock">
                 <p>12</p>
                 <p><span>9</span><span>3</span></p>
                 <p>6</p>
-                <div class="hand hour" data-hour-hand></div>
-                <div class="hand minute" data-minute-hand></div>
-                <div class="hand second" data-second-hand></div>
+                <div class="hand hour"></div>
+                <div class="hand minute"></div>
+                <div class="hand second"></div>
             </section>
-            <section class="timer">
-                <p id="time"></p>
-                <button id="start-button">Start</button>
+            <section class="timer" id="timer">
+                <header>
+                    <a href="#clock">❮ Digital</a>
+                    <p class="stopwatch-clock"></p>
+                </header>
+                <p id="time">00:00.00</p>
+                <div class="" id="laps-container"></div>
+                <div class="button-container">
+                    <button id="reset-button" class="button disabled" disabled>Lap</button>
+                    <button id="start-button" class="button">Start</button>
+                </div>
             </section>
-            <section class="music-player">aKraba</section>
-            <section>122</section>
+            <section class="audio-player">
+                <header>
+                    <a href="#clock">❮ Digital</a>
+                    <p class="stopwatch-clock"></p>
+                </header>
+                <div class="audio-container">
+                    <p id="audio-title"></p>
+                    <p id="audio-author"></p>
+                    <div id="audio-controls">
+                        <p>⏪︎</p>
+                        <p id="play-button">&#9658;</p>
+                        <p>⏩︎</p>
+                    </div>
+                </div>
+                <div id="volume-container">
+                    <p>+</p>
+                    <p>-</p>
+                </div>
+            </section>
         </div>
-        
-    </div>
 
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.js"></script>
     <script src="./index.js"></script>
+
 </body>
+
 </html>

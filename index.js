@@ -1,80 +1,119 @@
-const timerButton = document.getElementById("start-button")
+const timerButton = document.getElementById("start-button");
+const resetButton = document.getElementById("reset-button"); 
+const playButton = document.getElementById("play-button")
+
+let elapsedTime = 0;
+let interval;
+let startTime = 0;
+let tags
 
 function clock() {
-    const date = new Date()
+    const date = new Date();
 
-    const hour = date.getHours()
-    const minutes = date.getMinutes()
-    const second = date.getSeconds()
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const second = date.getSeconds();
 
-    setRotation(document.querySelector(".hour"), (hour + minutes / 60) * 30)
-    setRotation(document.querySelector(".minute"), (minutes + second / 60) * 6)
-    setRotation(document.querySelector(".second"), second * 6)
+    
+    setRotation(document.querySelector(".hour"), (hour + minutes / 60) * 30);
+    setRotation(document.querySelector(".minute"), (minutes + second / 60) * 6);
+    setRotation(document.querySelector(".second"), second * 6);
+
+    document.querySelectorAll(".stopwatch-clock").forEach(x => x.textContent = `${hour}:${minutes}`)
 }
 
 function formatDate(data) {
-    return data.map(x => x.toString().padStart(2, "0"))
+    return data.map((x) => x.toString().padStart(2, "0"));
 }
 
 function setRotation(element, rotation) {
-    element.style.setProperty("--rotation", `${rotation}deg`)
+    element.style.setProperty("--rotation", `${rotation}deg`);
 }
-
-let elapsedTime = 0
-let interval
-let startTime = 0
-
 
 const startStopwatch = () => {
-    startTime = new Date().getTime() - elapsedTime
+    startTime = new Date().getTime() - elapsedTime;
     interval = setInterval(() => {
-        currentTime = new Date().getTime()
+        const currentTime = new Date().getTime();
         elapsedTime = currentTime - startTime;
-        document.getElementById("time").textContent = formatTime(elapsedTime)
-    }, 100)
-    timerButton.textContent = "Stop"
-}
+        document.getElementById("time").textContent = formatTime(elapsedTime);
+    }, 100);
+    timerButton.textContent = "Stop";
+};
 
 const stopStopwatch = () => {
-    clearInterval(interval)
-    interval = undefined
-    elapsedTime = new Date().getTime() - startTime
-    timerButton.textContent = "Start"
-}
+    clearInterval(interval);
+    interval = undefined;
+    elapsedTime = new Date().getTime() - startTime;
+    timerButton.textContent = "Start";
+};
 
 const resetStopwatch = () => {
-    stopStopwatch()
-    elapsedTime = 0
-    document.getElementById("time").textContent = "00:00.00"
-}
-
+    stopStopwatch();
+    elapsedTime = 0;
+    document.getElementById("time").textContent = "00:00.00";
+    document.getElementById("laps-container").innerHTML = ""
+};
 
 function formatTime(milliseconds) {
     const totalSeconds = milliseconds / 1000;
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = Math.floor(totalSeconds % 60);
-    const ms = (milliseconds % 1000).toString().padStart(3, '0').substring(0, 2);
+    const ms = (milliseconds % 1000).toString().padStart(3, "0").substring(0, 2);
 
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ms}`;
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${ms}`;
 }
 
-clock()
-resetStopwatch()
+const audio_url = "new_tank.mp3"
+
+
+const audio = new Audio(audio_url)
+jsmediatags.read("http://127.0.0.1:5500/"+audio_url, {
+  onSuccess: function({tags}) {
+    console.log(tags)
+    document.getElementById("audio-title").textContent = tags.title
+    document.getElementById("audio-author").textContent = `${tags.artist} - ${tags.album}`
+  },
+  onError: function(error) {
+    console.log(error);
+  }
+});
+
+clock();
+resetStopwatch();
 
 timerButton.addEventListener("click", () => {
-    let resetButton = null
-    console.log(elapsedTime, startTime, interval)
+    resetButton.removeAttribute("disabled")
     if (!interval) {
-        startStopwatch()
-        resetButton && document.querySelector(".timer").removeChild(resetButton)
+        startStopwatch();
+        resetButton.classList.remove("reset")
+        resetButton.classList.add("lap")
+
+        resetButton.textContent = "Lap"
+    } else {
+        stopStopwatch();
+        resetButton.classList.replace("lap", "reset")
+        resetButton.textContent = "Reset";        
     }
-    else {
-        stopStopwatch()
-        resetButton = document.createElement("button")
-        resetButton.textContent = "reset"
-        document.querySelector(".timer").appendChild(resetButton)
-        resetButton.addEventListener("click", resetButton)
+});
+
+resetButton.addEventListener("click", () => {
+    if(!interval) {
+        resetStopwatch()
+    } else {
+        document.getElementById("laps-container").innerHTML += `<p>${formatTime(elapsedTime)}</p>`
     }
 })
 
-setInterval(clock, 1000)
+playButton.addEventListener("click", () => {
+    
+    if(audio.duration > 0 && !audio.paused) {
+        playButton.textContent = "►"
+        audio.pause()
+    } else {
+        audio.play()
+        playButton.textContent = "⏸︎"
+    }
+
+})
+
+setInterval(clock, 1000);
